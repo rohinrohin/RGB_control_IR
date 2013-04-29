@@ -184,7 +184,8 @@ void setup()
 //  }
 //}
 
-void loadConfig() {
+void loadConfig() { // Load Previous Config. of EEPROM
+  Serial.println("Reading EEPROM for last LED State...");
   lightMode = EEPROM.read(0);
 
   hueVal = loadBig(1,2);
@@ -240,6 +241,7 @@ void loop()
 
 // Off
 void mdOff() {
+  Serial.println("mdOff Recieved");
   lumVal = 0;
   fadeTo(1);
 }
@@ -247,6 +249,7 @@ void mdOff() {
 // On - Solid
 void mdSolid() {
   fadeTo(1);
+  Serial.println("Switching on LED to Solid Mode");
 }
 
 // Pulsing
@@ -359,15 +362,18 @@ void mdSleep() {
 
 // Go directly to the selected color
 void mdDirect() {
+  Serial.println("Direct Color Function Called. ");
   hslWrite();
 }
 
 void menuChoice(int number) {
+  Serial.println("menuChoice func. Called. ");
   switch(number) {
     case 1:
       if (menu == 1) {
         changeMode(1);
       } else {
+        Serial.println("Red Solid MenuChoice Func. Called");
         turnOn(1);
         hueVal = 0; // Red
       }
@@ -378,6 +384,7 @@ void menuChoice(int number) {
         changeMode(2);
       } else {
         turnOn(1);
+        Serial.println("Green Solid MenuChoice Func. Called");
         hueVal = 120; // Green
       }
       break;
@@ -387,6 +394,7 @@ void menuChoice(int number) {
         changeMode(3);
       } else {
         turnOn(1);
+        Serial.println("Blue Solid MenuChoice Func. Called");
         hueVal = 240; // Blue
       }
       break;
@@ -396,6 +404,7 @@ void menuChoice(int number) {
         changeMode(4);
       } else {
         turnOn(1);
+        Serial.println("Orange Solid MenuChoice Func. Called");
         hueVal = 10; // Orange
       }
       break;
@@ -405,6 +414,7 @@ void menuChoice(int number) {
         changeMode(5);
       } else {
         turnOn(1);
+        Serial.println("Sea Foam Solid MenuChoice Func. Called");
         hueVal = 135; // Sea Foam
       }
       break;
@@ -414,6 +424,7 @@ void menuChoice(int number) {
         changeMode(6);
       } else {
         turnOn(1);
+        Serial.println("Purple Solid MenuChoice Func. Called");
         hueVal = 270; // Purple
       }
       break;
@@ -423,6 +434,7 @@ void menuChoice(int number) {
         changeMode(7);
       } else {
         turnOn(1);
+        Serial.println("Yellow Solid MenuChoice Func. Called");
         hueVal = 45; // Yellow
       }
       break;
@@ -432,6 +444,7 @@ void menuChoice(int number) {
 
       } else {
        turnOn(1);
+       Serial.println("Cyan Solid MenuChoice Func. Called");
         hueVal = 180; // Cyan
       }
       break;
@@ -441,6 +454,7 @@ void menuChoice(int number) {
 
       } else {
         turnOn(1);
+        Serial.println("Pink Solid MenuChoice Func. Called");
         hueVal = 350; // Pink
       }
       break;
@@ -450,6 +464,7 @@ void menuChoice(int number) {
 
       } else {
         turnOn(1);
+        Serial.println("Light Blue Solid MenuChoice Func. Called");
         hueVal = 210; // Light blue
       }
       break;
@@ -460,6 +475,7 @@ void menuChoice(int number) {
       } else {
         turnOn(1);
         hueVal = 80; // Lime
+        Serial.println("Lime, Recall Solid MenuChoice Func. Called");
       }
       break;
   }
@@ -474,6 +490,7 @@ void getIrCmd() {
     if (results.value != 0xFFFFFFFF) {
       code = results.value;
       lastCode = code;
+      Serial.println("IR Code Recieved. ");
       previousDelayMillis = millis();
     } else {
       if (millis() - previousDelayMillis > buttonDelay) {
