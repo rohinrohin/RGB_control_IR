@@ -1,4 +1,3 @@
-#include <stdarg.h>
 #include <EEPROM.h>
 #include <IRremote.h>
 //#include <IRremoteInt.h>
@@ -16,13 +15,13 @@ created on Apr29th 2013
 
 
 // set the ledPins
-int redPin = 5;
-int greenPin = 6;
+int redPin = 6;
+int greenPin = 5;
 int bluePin = 9;
 
 int lastCode;
 int code;
-int RECV_PIN = 2;
+int RECV_PIN = 10;
 IRrecv irrecv(RECV_PIN);
 decode_results results;
 
@@ -70,7 +69,7 @@ int pulseDir = 0;     // Pulse direction
 
 void setup()
 {
-  bitSet(TCCR1B, WGM12);
+//  bitSet(TCCR1B, WGM12);
   pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
   pinMode(bluePin, OUTPUT);
@@ -202,7 +201,7 @@ void loop()
 //  sCmd.readSerial();
 
   // Save clockcycles when running in serial mode.
-  if (lightMode != 99) {
+//  if (lightMode != 99) {
     getIrCmd();
 
     switch(lightMode) {
@@ -237,11 +236,10 @@ void loop()
       mdOff();
     }
   }
-}
+
 
 // Off
 void mdOff() {
-  Serial.println("mdOff Recieved");
   lumVal = 0;
   fadeTo(1);
 }
@@ -249,7 +247,6 @@ void mdOff() {
 // On - Solid
 void mdSolid() {
   fadeTo(1);
-  Serial.println("Switching on LED to Solid Mode");
 }
 
 // Pulsing
@@ -475,7 +472,7 @@ void menuChoice(int number) {
       } else {
         turnOn(1);
         hueVal = 80; // Lime
-        Serial.println("Lime, Recall Solid MenuChoice Func. Called");
+        Serial.println("Lime Solid MenuChoice Func. Called");
       }
       break;
   }
@@ -486,7 +483,8 @@ void getIrCmd() {
   if (irrecv.decode(&results)) {
     //Serial.println(results.value, HEX);
     irrecv.resume(); // Receive the next value
-
+    
+Serial.println(results.value, HEX);
     if (results.value != 0xFFFFFFFF) {
       code = results.value;
       lastCode = code;
@@ -501,7 +499,7 @@ void getIrCmd() {
     }
 
     switch(code) {
-      case 0x61D638C7: // FM
+      case 163967: // FM
         if (results.value != 0xFFFFFFFF) {
           if (lightMode == 3) {
             changeMode(1);
@@ -512,61 +510,77 @@ void getIrCmd() {
         }
         break;
 
-      case 0x61D648B7: // Power
+      case 131327: // Power
+      
         if (results.value != 0xFFFFFFFF) {
           if (lightMode == 0) {
             changeMode(lastLightMode);
+            Serial.println("Power On Recieved ");
           } else {
             changeMode(0);
+            Serial.println("Power Off Recieved ");
           }
         }
         break;
 
-      case 0x61D6807F: // 1
+      case 180287: // 1{
+        {
+      Serial.println("IR Decoded - No. 1 Recieved");
         menuChoice(1);
         break;
-
-      case 0x61D640BF: // 2
+        }
+      case 139487: // 2
+      Serial.println("IR Decoded - No. 2 Recieved");
         menuChoice(2);
         break;
 
-      case 0x61D6C03F: // 3
+      case 172127: // 3 
+      Serial.println("IR Decoded - No. 3 Recieved");
         menuChoice(3);
         break;
 
-      case 0x61D620DF: // 4
+      case 155807: // 4
+      Serial.println("IR Decoded - No. 4 Recieved");
         menuChoice(4);
         break;
 
-      case 0x61D6A05F: // 5
+      case 188447: // 5
+      Serial.println("IR Decoded - No. 5 Recieved");
         menuChoice(5);
         break;
 
-      case 0x61D6609F: // 6
+      case 135407: // 6
+      Serial.println("IR Decoded - No. 6 Recieved");
         menuChoice(6);
         break;
 
-      case 0x61D6E01F: // 7
+      case 168047: // 7
+      Serial.println("IR Decoded - No. 7 Recieved");
         menuChoice(7);
         break;
 
-      case 0x61D610EF: // 8
+      case 151727: // 8
+      Serial.println("IR Decoded - No. 8 Recieved");
         menuChoice(8);
         break;
 
-      case 0x61D6906F: // 9
+      case 184367: // 9
+      Serial.println("IR Decoded - No. 9 Recieved");
         menuChoice(9);
         break;
 
-      case 0x61D600FF: // 0
+      case 143567: // 0
+      Serial.println("IR Decoded - No. 0 Recieved");
         menuChoice(0);
         break;
 
-      case 0x61D650AF: // Recall
+      case 157847: // Recall
+      Serial.println("IR Decoded - Recall Key Recieved");
         menuChoice(10);
         break;
 
-      case 0x61D628D7: // Menu
+      case 159887: // Menu
+      Serial.println("IR Decoded - Menu Button Recieved");
         if (menu == 0) {
           menu = 1;
         } else {
@@ -574,18 +588,20 @@ void getIrCmd() {
         }
         break;
 
-      case 0x61D6E817: // +100
+      case 101010: // +100
         turnOn(1);
         satVal = 0; // White
         break;
 
-      case 0x61D608F7: // Info
+      case 152237: // Info = Message Hathway
+      Serial.println("Print Info Request");
         if (results.value != 0xFFFFFFFF) {
           printInfoToSerial();
         }
         break;
 
-      case 0x61D6D02F: // Up
+      case 166007: // Up
+      Serial.println("IR Decoded - Remote UP Recieved");
         if (results.value != 0xFFFFFFFF) {
           satVal++;
         } else {
@@ -596,7 +612,8 @@ void getIrCmd() {
         }
         break;
 
-      case 0x61D6A857: // Down
+      case 174167: // Down
+      Serial.println("IR Decoded - Remote DOWN Recieved");
         if (results.value != 0xFFFFFFFF) {
           satVal--;
         } else {
@@ -607,7 +624,8 @@ void getIrCmd() {
         }
         break;
 
-      case 0x61D618E7: // Left
+      case 149687: // Left
+      Serial.println("IR Decoded - Remote Left Recieved");
         if (results.value != 0xFFFFFFFF) {
           hueVal--;
         } else {
@@ -618,7 +636,8 @@ void getIrCmd() {
         }
         break;
 
-      case 0x61D630CF: // Right
+      case 141527: // Right
+      Serial.println("IR Decoded - Remote Right Recieved");
         if (results.value != 0xFFFFFFFF) {
           hueVal++;
         } else {
@@ -629,24 +648,17 @@ void getIrCmd() {
         }
         break;
 
-      case 0x61D66897: // OK
+      case 182327: // OK
+      Serial.println("IR Decoded - Remote OK Recieved");
         satVal = 255;
         break;
 
-      case 0x61D68877: // TV/AV
-        break;
-
-      case 0x61D6B04F: // Mode
+      case 010101: // Mode
         interval = 50;
         break;
 
-      case 0x61D6F00F: // Audio
-        break;
-
-      case 0x61D6708F: // Sleep
-        break;
-
-      case 0x61D6D827: // Vol+
+      case 194561: // Vol+
+      Serial.println("IR Decoded - Remote V+ Recieved");
         if (results.value != 0xFFFFFFFF) {
           lumVal++;
         } else {
@@ -657,7 +669,8 @@ void getIrCmd() {
         }
         break;
 
-      case 0x61D6F807: // Vol-
+      case 131837: // Vol-
+      Serial.println("IR Decoded - Remote V- Recieved");
         if (results.value != 0xFFFFFFFF) {
           lumVal--;
         } else {
@@ -668,11 +681,13 @@ void getIrCmd() {
         }
         break;
 
-      case 0x61D6C837: // Mute
+      case 137447: // Mute
+      Serial.println("IR Decoded - Remote Mute Recieved");
         lumVal = 127;
         break;
 
-      case 0x61D658A7: // Chan+
+      case 133367: // Chan+
+      Serial.println("IR Decoded - Remote CH+ Recieved");
         if (results.value != 0xFFFFFFFF) {
           interval++;
         } else {
@@ -683,7 +698,8 @@ void getIrCmd() {
         }
         break;
 
-      case 0x61D67887: // Chan-
+      case 192527: // Chan-
+      Serial.println("IR Decoded - Remote CH- Recieved");
         if (results.value != 0xFFFFFFFF) {
           interval--;
         } else {
@@ -732,6 +748,7 @@ void printInfoToSerial() {
 }
 
 void changeMode(int mode) {
+  Serial.println("Mode Func. ");
   switch(mode) {
     case 0:
       lastLightMode = lightMode;
@@ -810,7 +827,8 @@ void hslWrite()
     writeLED();
 }
 
-// from http://www.kasperkamperman.com/blog/arduino/arduino-programming-hsb-to-rgb/
+// thx to -- http://www.kasperkamperman.com/blog/arduino/arduino-programming-hsb-to-rgb/
+// edit by Rohin Gopalakrishnan
 const byte gamma_curve[] = {
     0,   1,   1,   2,   2,   2,   2,   2,   2,   3,   3,   3,   3,   3,   3,   3,
     3,   3,   3,   3,   3,   3,   3,   4,   4,   4,   4,   4,   4,   4,   4,   4,
@@ -831,7 +849,7 @@ const byte gamma_curve[] = {
 };
 
 
-// http://www.dipzo.com/wordpress/?p=50
+// thanks to -- http://www.dipzo.com/wordpress/?p=50
 void hslToRgb( int hue, byte sat, byte lum, byte* lpOutRgb )
 {
   if( sat == 0 )
