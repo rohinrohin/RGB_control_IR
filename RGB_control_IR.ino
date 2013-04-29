@@ -8,7 +8,7 @@
 LED Controller for Arduino
 By Rohin Gopalakrishnan
 Available on Public Domain.
-http://rohinrohin.github.io/IR_RGB_CONTROL
+http://rohinrohin.github.io/RGB_control_IR
 Credits to DarkFox and Shirrif
 
 created on Apr29th 2013
