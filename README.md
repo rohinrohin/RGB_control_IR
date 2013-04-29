@@ -22,12 +22,3 @@
 *with fade option for every mode.*
 
 
-> ### IR Controlled Arduino RGB LED Controller
-> Use this coded to recieve IR from any Remote Input, and use it to control different mode's and colors of the RGB LED. This is mainly used with a ULN2003A or its brother ULN2803A to control High Power 12v RGB LED Strips. 
-
-## Different Mode's Available - 
-* mdPulse
-* mdSolid
-* mdRandomFade
-* mdRainbow
-* mdStrobe, with fade option for every mode. 
