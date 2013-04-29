@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="IR RGB LED CONTROLLER : Control RGB LED remotely with an Arduino and IR Remote" />
+    <meta name="description" content="IR RGB LED CONTROLLER : Control RGB LED strip remotely with an Arduino and IR Remote w/ TSOP 1738" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -19,7 +19,7 @@
           <a id="forkme_banner" href="https://github.com/rohinrohin/RGB_control_IR">View on GitHub</a>
 
           <h1 id="project_title">IR RGB LED CONTROLLER</h1>
-          <h2 id="project_tagline">Control RGB LED remotely with an Arduino and IR Remote</h2>
+          <h2 id="project_tagline">Control RGB LED strip remotely with an Arduino and IR Remote w/ TSOP 1738</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/rohinrohin/RGB_control_IR/zipball/master">Download this project as a .zip file</a>
@@ -34,10 +34,25 @@
         <blockquote>
 <h3>IR Controlled Arduino RGB LED Controller</h3>
 
-<p>Use this coded to recieve IR from any Remote Input, and use it to control different mode's and colors of the RGB LED. This is mainly used with a ULN2003A or its brother ULN2803A to control High Power 12v RGB LED Strips. </p>
+<p>Use this coded to recieve IR Code from any Remote, and use it to drive different mode's and colors on the RGB LED. This code is mainly used in parallel with a ULN2003A or ULN2803A to control 12v RGB LED Strip(Common Anode). </p>
 </blockquote>
 
-<h2>Different Mode's Available -</h2>
+<pre><code>$ cd rohinrohn/IR_RGB_CONTROLLER
+$ git fetch master
+$ git checkout gh-pages
+</code></pre>
+
+<h3>Prerequisites</h3>
+
+<ul>
+<li>Arduino IDE</li>
+<li>Arduino Uno? Or any other Arduino Compatible.</li>
+<li>IRremote Library.</li>
+<li>SerialCommand Library, if you want Serial Command Input.</li>
+<li>RGB LED, to test it, or you can get the Strip. </li>
+<li>TSOP 1738, or any other compatible IR Reciever.</li>
+<li>ULN2003A or ULN2803A Darrington Array, for 12v PWM control. </li>
+</ul><h2>Different Mode's Available -</h2>
 
 <ul>
 <li>mdPulse</li>
@@ -45,29 +60,22 @@
 <li>mdRandomFade</li>
 <li>mdRainbow</li>
 <li>mdStrobe, with fade option for every mode. </li>
-</ul><pre><code>$ cd rohinrohn/IR_RGB_CONTROLLER
-$ git fetch rohinrohin
-$ git checkout gh-pages
-</code></pre>
+</ul><h2>Known bugs -</h2>
+
+<p>There is an Issue where the IR Receiver Input starts reading random value's when connected to an RGB LED, not the strip. 
+Can't seem to figure out Why?
+But works fine when using the Darrington Transistor Array! :D</p>
 
 <p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
 
-<h3>Prerequisites</h3>
-
-<ul>
-<li>Arduino IDE</li>
-<li>Arduino Uno? Or any other Arduino Compatible</li>
-<li>IRremote Library</li>
-<li>SerialCommand Library, if you want Serial Command Input</li>
-<li>RGB LED, to test it</li>
-</ul><h3>Authors and Contributors</h3>
+<h3>Authors and Contributors</h3>
 
 <p><strong>Main Contributor - Rohin Gopalakrishnan(<a href="https://github.com/rohinrohin" class="user-mention">@rohinrohin</a>)</strong>
-_A big Thanks goes to Martin Eberhardt DarkFox(<a href="https://github.com/DarkFox" class="user-mention">@DarkFox</a>) for his base RGB LED Controller, and Shirriff for his amazing IRremote Reciever Code. _</p>
+<em>A big Thanks goes to Martin Eberhardt DarkFox(<a href="https://github.com/DarkFox" class="user-mention">@DarkFox</a>) for his RGB LED Control base which I developed on, and Shirriff for his amazing IRremote Reciever Library.</em></p>
 
 <h3>Support or Contact</h3>
 
-<p>Feel free to contact me on my mail (<a href="mailto:rohinrohin@gmail.com">rohinrohin@gmail.com</a>) or on twitter(<a href="https://github.com/rohinrohin" class="user-mention">@rohinrohin</a>).</p>
+<p>Contact (<a href="mailto:rohinrohin@gmail.com">rohinrohin@gmail.com</a>) or on twitter(<a href="https://github.com/rohinrohin" class="user-mention">@rohinrohin</a>) for any quesiotns and I will try my best to help you. </p>
 
 <p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
       </section>
