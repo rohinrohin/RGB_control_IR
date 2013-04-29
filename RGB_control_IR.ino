@@ -1,8 +1,8 @@
 #include <stdarg.h>
 #include <EEPROM.h>
 #include <IRremote.h>
-#include <IRremoteInt.h>
-#include <SerialCommand.h>
+//#include <IRremoteInt.h>
+//#include <SerialCommand.h>
 
 /*
 LED Controller for Arduino
@@ -26,7 +26,7 @@ int RECV_PIN = 2;
 IRrecv irrecv(RECV_PIN);
 decode_results results;
 
-SerialCommand sCmd;
+//SerialCommand sCmd;
 
 // LED Power variables
 byte redPwr = 0;
@@ -86,103 +86,103 @@ void setup()
   // serial
   Serial.begin(9600);
 
-  // Setup callbacks for SerialCommand commands
-  sCmd.addCommand("MODE",  s_mode); // (int mode) Set light mode
-  sCmd.addCommand("HUE",  s_hue); // (bigint hue) Set hue
-  sCmd.addCommand("SAT",  s_sat); // (int sat) Set saturation
-  sCmd.addCommand("LUM",  s_lum); // (int lum) Set luminescence
-  sCmd.addCommand("INTERVAL",  s_interval); // (bigint interval) Set interval
-  sCmd.addCommand("SETHSL", s_set_hsl); // (bigint hue, int sat, int lum) Set hue, saturation and luminescence in one command
-  sCmd.addCommand("WRITEHSL", s_write_hsl); // Write to LEDs using HSL values
-  sCmd.addCommand("RED", s_red); // (int pwr) Write red power
-  sCmd.addCommand("GRN", s_grn); // (int pwr) Write green power
-  sCmd.addCommand("BLU", s_blu); // (int pwr) Write blue power
-  sCmd.addCommand("SETRGB", s_set_rgb); // (int red, int grn, int blu) Set red, green and blue in one command
-  sCmd.addCommand("WRITERGB", s_write_rgb); // Write to LEDs using RGB values
-  sCmd.addCommand("SAVE", s_save_state); // Save state to EEPROM
-  sCmd.addCommand("STATE", printInfoToSerial); // Get current state
-  sCmd.setDefaultHandler(unrecognized);      // Handler for command that isn't matched
+//  // Setup callbacks for SerialCommand commands
+//  sCmd.addCommand("MODE",  s_mode); // (int mode) Set light mode
+//  sCmd.addCommand("HUE",  s_hue); // (bigint hue) Set hue
+//  sCmd.addCommand("SAT",  s_sat); // (int sat) Set saturation
+//  sCmd.addCommand("LUM",  s_lum); // (int lum) Set luminescence
+//  sCmd.addCommand("INTERVAL",  s_interval); // (bigint interval) Set interval
+//  sCmd.addCommand("SETHSL", s_set_hsl); // (bigint hue, int sat, int lum) Set hue, saturation and luminescence in one command
+//  sCmd.addCommand("WRITEHSL", s_write_hsl); // Write to LEDs using HSL values
+//  sCmd.addCommand("RED", s_red); // (int pwr) Write red power
+//  sCmd.addCommand("GRN", s_grn); // (int pwr) Write green power
+//  sCmd.addCommand("BLU", s_blu); // (int pwr) Write blue power
+//  sCmd.addCommand("SETRGB", s_set_rgb); // (int red, int grn, int blu) Set red, green and blue in one command
+//  sCmd.addCommand("WRITERGB", s_write_rgb); // Write to LEDs using RGB values
+//  sCmd.addCommand("SAVE", s_save_state); // Save state to EEPROM
+//  sCmd.addCommand("STATE", printInfoToSerial); // Get current state
+//  sCmd.setDefaultHandler(unrecognized);      // Handler for command that isn't matched
 
   Serial.println("--RGB LED controller booted and ready--");
 }
 
-// This gets set as the default handler, and gets called when no other command matches.
-void unrecognized(const char *command) {
-  Serial.println("UNRECOGNIZED");
-}
-
-void s_mode() {
-  int aNumber;
-  aNumber = get_serial_number();
-  changeMode(aNumber);
-}
-
-void s_hue() {
-  hueVal = get_serial_number();
-}
-
-void s_sat() {
-  satVal = get_serial_number();
-}
-
-void s_lum() {
-  lumVal = get_serial_number();
-}
-
-void s_interval() {
-  interval = get_serial_number();
-}
-
-void s_set_hsl() {
-  hueVal = get_serial_number();
-  satVal = get_serial_number();
-  lumVal = get_serial_number();
-}
-
-void s_write_hsl() {
-  hslWrite();
-}
-
-void s_red() {
-  redPwr = get_serial_number();
-}
-
-void s_grn() {
-  greenPwr = get_serial_number();
-}
-
-void s_blu() {
-  bluePwr = get_serial_number();
-}
-
-void s_set_rgb() {
-  redPwr = get_serial_number();
-  greenPwr = get_serial_number();
-  bluePwr = get_serial_number();
-  writeLED();
-}
-
-void s_write_rgb() {
-  writeLED();
-}
-
-void s_save_state() {
-  saveState();
-}
-
-int get_serial_number() {
-  int aNumber;
-  char *arg;
-  arg = sCmd.next();
-
-  if (arg != NULL) {
-    aNumber = atoi(arg);
-    return aNumber;
-  } else {
-    Serial.println("ERROR");
-    return NULL;
-  }
-}
+//// This gets set as the default handler, and gets called when no other command matches.
+//void unrecognized(const char *command) {
+//  Serial.println("UNRECOGNIZED");
+//}
+//
+//void s_mode() {
+//  int aNumber;
+//  aNumber = get_serial_number();
+//  changeMode(aNumber);
+//}
+//
+//void s_hue() {
+//  hueVal = get_serial_number();
+//}
+//
+//void s_sat() {
+//  satVal = get_serial_number();
+//}
+//
+//void s_lum() {
+//  lumVal = get_serial_number();
+//}
+//
+//void s_interval() {
+//  interval = get_serial_number();
+//}
+//
+//void s_set_hsl() {
+//  hueVal = get_serial_number();
+//  satVal = get_serial_number();
+//  lumVal = get_serial_number();
+//}
+//
+//void s_write_hsl() {
+//  hslWrite();
+//}
+//
+//void s_red() {
+//  redPwr = get_serial_number();
+//}
+//
+//void s_grn() {
+//  greenPwr = get_serial_number();
+//}
+//
+//void s_blu() {
+//  bluePwr = get_serial_number();
+//}
+//
+//void s_set_rgb() {
+//  redPwr = get_serial_number();
+//  greenPwr = get_serial_number();
+//  bluePwr = get_serial_number();
+//  writeLED();
+//}
+//
+//void s_write_rgb() {
+//  writeLED();
+//}
+//
+//void s_save_state() {
+//  saveState();
+//}
+//
+//int get_serial_number() {
+//  int aNumber;
+//  char *arg;
+//  arg = sCmd.next();
+//
+//  if (arg != NULL) {
+//    aNumber = atoi(arg);
+//    return aNumber;
+//  } else {
+//    Serial.println("ERROR");
+//    return NULL;
+//  }
+//}
 
 void loadConfig() {
   lightMode = EEPROM.read(0);
@@ -198,7 +198,7 @@ void loadConfig() {
 
 void loop()
 {
-  sCmd.readSerial();
+//  sCmd.readSerial();
 
   // Save clockcycles when running in serial mode.
   if (lightMode != 99) {
