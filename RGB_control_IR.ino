@@ -4,6 +4,16 @@
 #include <IRremoteInt.h>
 #include <SerialCommand.h>
 
+/*
+LED Controller for Arduino
+By Rohin Gopalakrishnan
+Available on Public Domain.
+http://rohinrohin.github.io/IR_RGB_CONTROL
+Credits to DarkFox and Shirrif
+
+created on Apr29th 2013
+*/
+
 
 // set the ledPins
 int redPin = 5;
