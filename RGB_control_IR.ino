@@ -5,7 +5,7 @@
 
 /*
 LED Controller for Arduino
-By Rohin Gopalakrishnan
+By Rohin Gopalakrishnanx
 Available on Public Domain.
 http://rohinrohin.github.io/RGB_control_IR
 Credits to DarkFox and Shirrif
@@ -850,6 +850,7 @@ const byte gamma_curve[] = {
 
 
 // thanks to -- http://www.dipzo.com/wordpress/?p=50
+// re-edit - Rohin Gopi
 void hslToRgb( int hue, byte sat, byte lum, byte* lpOutRgb )
 {
   if( sat == 0 )
@@ -887,7 +888,7 @@ byte hueToChannelRaw( float m1, float m2, float h )
   return uchan;
 }
 
-// this gives much better colour matching than Raw, but results in more jumpy fading
+// Thanks - DarthVader(@DArthy)
 byte hueToChannelGamma( float m1, float m2, float h )
 {
   float channel = hueToChannelInternal( m1, m2, h );
