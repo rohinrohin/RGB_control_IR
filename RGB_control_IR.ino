@@ -500,6 +500,7 @@ Serial.println(results.value, HEX);
 
     switch(code) {
       case 163967: // FM
+      Serial.println("FM Radio Recieved");
         if (results.value != 0xFFFFFFFF) {
           if (lightMode == 3) {
             changeMode(1);
