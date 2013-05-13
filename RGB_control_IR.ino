@@ -16,12 +16,12 @@ created on Apr29th 2013
 
 // set the ledPins
 int redPin = 6;
-int greenPin = 5;
+int greenPin = 10;
 int bluePin = 9;
 
 int lastCode;
 int code;
-int RECV_PIN = 10;
+int RECV_PIN = 3;
 IRrecv irrecv(RECV_PIN);
 decode_results results;
 
